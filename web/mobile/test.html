@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hello World</title>
+    <meta name="viewport" content="width=device-width,inital-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/public/jquery.mobile-1.2.1/jquery.mobile-1.2.1.css"/>
+    <script type="text/javascript" src="/public/jquery.mobile-1.2.1/jquery.js"></script>
+    <script type="text/javascript" src="/public/jquery.mobile-1.2.1/jquery.mobile-1.2.1.js"></script>
+</head>
+<body>
+    <div data-role="page" id="main" >
+        <div data-role="header" data-position="fixed"><h1>Header</h1></div>
+        <div data-role="content">
+            <h1 align="center">MAIN</h1>
+            <a href="#sub" data-role="button"  data-transition="turn" data-inline="true">Go</a>
+            <a href="#dialog" data-role="button" data-transition="flow" data-icon="search"
+               data-inline="true" data-iconpos="notext">Search</a>
+            <a href="#dialog" data-role="button" data-transition="flip" data-icon="info"
+               data-iconpos="right">Open</a>
+            <a href="#sub" data-role="button" data-transition="slide" data-icon="arrow-r"
+               data-iconpos="right">Move</a>
+        </div>
+        <div data-role="footer" data-position="fixed"><h1>Footer</h1></h1></div>
+    </div>
+    <div data-role="page" id="sub">
+        <div data-role="header" data-position="fixed"><h1>Header</h1></div>
+        <div data-role="content">
+            <h1 align="center">SUB</h1>
+            <a href="#" data-role="button" data-icon="back" data-rel="back">Back</a>
+        </div>
+        <div data-role="footer" data-position="fixed"><h1>Footer</h1></div>
+    </div>
+    <div data-role="dialog" id="dialog" data-theme="d">
+        <div data-role="header" data-position="fixed">
+            <h1>Hello</h1>
+        </div>
+        <div data-role="content">
+            <h1 >Welcome!</h1>
+        </div>
+    </div>
+
+</body>
+</html>

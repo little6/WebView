@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:ehcache="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <import resource="applicationContext-jdbc.xml"/>
+
+    <!--ibatis配置-->
+    <bean id="sqlMapClient-user"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation"
+                  value="classpath:/sqlMapConfig-user.xml"/>
+    </bean>
+
+    <bean id="userService" class="com.zl.webView.service.impl.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <bean id="userDAO" class="com.zl.webView.dao.impl.UserDAOImpl"
+            parent="baseDAO">
+        <property name="sqlMapClient" ref="sqlMapClient-user"/>
+    </bean>
+
+
+</beans>

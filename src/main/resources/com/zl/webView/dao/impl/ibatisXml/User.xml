@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+    <typeAlias alias="User" type="com.zl.webView.entity.User"/>
+
+    <resultMap id="user" class="User">
+        <result property="userId" column="USER_ID" nullValue="0"/>
+        <result property="name" column="NAME"/>
+        <result property="nickName" column="NICK_NAME"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="createUserId" column="CREATE_USER_ID" nullValue="0"/>
+        <result property="createDate" column="CREATE_DATE"/>
+        <result property="updateUserId" column="UPDATE_USER_ID" nullValue="0"/>
+        <result property="updateDate" column="UPDATE_DATE"/>
+    </resultMap>
+
+    <insert id="insert" parameterClass="User">
+        <selectKey keyProperty="userId" resultClass="java.lang.Long">
+            SELECT S_USER.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO T_USER(
+        USER_ID,
+        NAME,
+        NICK_NAME,
+        PASSWORD,
+        CREATE_USER_ID,
+        CREATE_DATE)
+        VALUES(
+        #userId#,
+        #name#,
+        #nickName#,
+        #password#,
+        #createUserId#,
+        SYSDATE)
+    </insert>
+    <!--注：isNotEmpty表示既不为空也不为null,isNotNull仅表示不为null-->
+    <delete id="delete" parameterClass="User">
+        DELETE FROM T_USER T WHERE T.USER_ID = #userId#
+    </delete>
+
+    <select id="searchUser" resultMap="user.user"
+            parameterClass="User">
+        SELECT T.* from T_USER T
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="userId" compareValue="0">
+                T.USER_ID = #userId#
+            </isGreaterThan>
+            <isNotEmpty prepend="AND" property="name">
+                T.NAME = #name#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="nickName">
+                T.NICK_NAME LIKE $nickName$
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="password">
+                T.PASSWORD = #password#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="startDate">
+                T.CREATE_DATE > #startDate#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="endDate">
+                #endDate# >= T.CREATE_DATE
+            </isNotEmpty>
+        </dynamic>
+        ORDER BY T.USER_ID ASC
+    </select>
+
+    <select id="searchUserCount" resultClass="java.lang.Long"
+            parameterClass="User">
+        SELECT COUNT(USER_ID) from T_USER T
+        <dynamic prepend="WHERE">
+            <isGreaterThan prepend="AND" property="userId" compareValue="0">
+                T.USER_ID = #userId#
+            </isGreaterThan>
+            <isNotEmpty prepend="AND" property="name">
+                T.NAME = #name#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="nickName">
+                T.NICK_NAME LIKE $nickName$
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="startDate">
+                T.CREATE_DATE > #startDate#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="endDate">
+                #endDate# >= T.CREATE_DATE
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
+    <update id="modifyUser" parameterClass="User">
+        UPDATE
+            T_USER T
+        SET
+            T.NAME = #name#,
+            T.NICK_NAME = #nickName#,
+            T.UPDATE_USER_ID = #updateUserId#,
+            T.UPDATE_DATE = SYSDATE
+        WHERE
+            T.USER_ID = #userId#
+    </update>
+
+    <update id="modifyPassword" parameterClass="User">
+        UPDATE
+            T_USER T
+        SET
+            T.PASSWORD = #password#
+        WHERE
+            T.USER_ID = #userId#
+    </update>
+</sqlMap>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="publicCodeService" class="com.zl.webView.service.impl.PublicCodeServiceImpl">
+        <property name="publicCodeMap" ref="publicCodeMap"/>
+    </bean>
+
+    <bean id="publicCodeMap" class="java.util.LinkedHashMap">
+        <constructor-arg>
+            <map>
+                <entry key="SEX" value-ref="sexMap"/>
+                <entry key="ID_TYPE" value-ref="idTypeMap"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    <!--性别-->
+    <bean id="sexMap" class="java.util.LinkedHashMap">
+        <constructor-arg>
+            <map>
+                <entry key="0" value="男"/>
+                <entry key="1" value="女"/>
+                <entry key="9" value="未知性别"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    <!--证件类别-->
+    <bean id="idTypeMap" class="java.util.LinkedHashMap">
+        <constructor-arg>
+            <map>
+                <entry key="I" value="身份证"/>
+                <entry key="P" value="护照"/>
+                <entry key="S" value="军人证"/>
+                <entry key="R" value="在华居住证"/>
+                <entry key="T" value="税务登记证"/>
+                <entry key="B" value="工商登记证"/>
+                <entry key="O" value="其他"/>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

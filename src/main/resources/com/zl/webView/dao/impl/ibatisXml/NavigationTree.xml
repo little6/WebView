@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="navigationTree">
+    <typeAlias alias="NavigationTree" type="com.zl.webView.entity.NavigationTree"/>
+
+    <resultMap id="navigationTree" class="NavigationTree">
+        <result property="navigationTreeId" column="NAVIGATION_TREE_ID" nullValue="0"/>
+        <result property="text" column="TEXT"/>
+        <result property="state" column="STATE"/>
+        <result property="iconCls" column="ICON_CLS"/>
+        <result property="url" column="URL"/>
+        <result property="parNodeId" column="PAR_NODE_ID" nullValue="0"/>
+    </resultMap>
+
+    <select id="getChildrenByParId" resultMap="navigationTree.navigationTree"
+            parameterClass="NavigationTree">
+        SELECT T.* FROM T_NAVIGATION_TREE T
+        WHERE T.PAR_NODE_ID = #navigationTreeId#
+    </select>
+</sqlMap>
