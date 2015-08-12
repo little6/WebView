@@ -6,5 +6,5 @@
 
 <sqlMapConfig>
     <settings lazyLoadingEnabled="true" useStatementNamespaces="true" />
-    <sqlMap resource="./com/zl/webView/dao/impl/ibatisXml/User.xml"></sqlMap>
+    <sqlMap resource="com/zl/webView/dao/impl/ibatisXml/User.xml"></sqlMap>
 </sqlMapConfig>
