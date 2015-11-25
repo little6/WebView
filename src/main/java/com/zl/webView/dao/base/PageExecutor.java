@@ -52,7 +52,7 @@ public class PageExecutor extends DefaultSqlExecutor {
             if (LOG.isDebugEnabled()) {
                 LOG.debug(sql);
             }
-            //将sql执行模式设为进行分页
+            //将sql执行模式设为不进行分页
             skipResults = NO_SKIPPED_RESULTS;
             maxResults = NO_MAXIMUM_RESULTS;
         }
